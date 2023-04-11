@@ -1,0 +1,26 @@
+:host {
+	::ng-deep {
+		.application-back {
+			background: white !important;
+		}
+
+		.tableau-resultat {
+			th, td {
+				border: 1px solid #EEE !important;
+			}
+		}
+
+		.tableau-de-bord-container.surface-ground {
+			background: #f0f3ee !important;
+		}
+
+		#resultatParti {
+			margin-left: 15rem !important;
+		}
+
+		.icone-chiffre {
+			width: 2.5rem;
+			height: 2.5rem;
+		}
+	}
+}

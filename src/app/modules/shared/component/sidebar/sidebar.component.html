@@ -1,0 +1,91 @@
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed':''">
+	<div class="logo-container">
+		<div class="logo-text mr-3" *ngIf="collapsed" @fadeInOut>
+			<img alt="Card" src="assets/img/cei.png" [style]="{'width': '50px','height': '52px'}">
+			<span class="ml-2 text-50" [style]="{fontWeight:'bold'}">e-SCRUTIN</span>
+		</div>
+		<i class=" logo pi pi-bars text-50 hover:text-orange-500 mr-4" (click)="toggleCollapse()"></i>
+	</div>
+	<div class="mt-5 text-center px-2">
+		<p-avatar class="btn-profil" [label]="afficherInitialesUtilisateurConnecte()" size="xlarge" shape="circle"
+				  (click)="popoverProfil.toggle($event)">
+		</p-avatar>
+		<p-overlayPanel #popoverProfil>
+			<div class="p-1 pr-2 w-13rem">
+				<div class="row justify-content-center font-bold text-vert">{{ utilisateur.prenoms + ' ' + utilisateur.nom | titlecase }}</div>
+				<div class="row justify-content-center text-sm font-light font-italic">{{ afficherRoleUtilisateurConnecte() }}</div>
+				<div class="row">
+					<button pButton class="m-1 vert" label="Changer mot de passe" icon="pi pi-lock" (click)="ouvrirModalEditionPassword()"></button>
+					<button pButton class="m-1 orange" label="Se déconnecter" icon="pi pi-power-off" (click)="deconnecter()"></button>
+				</div>
+			</div>
+		</p-overlayPanel>
+	</div>
+	<ul class="sidenav-nav">
+		<li class="sidenav-nav-item" *ngFor="let data of navData">
+			<a class="sidenav-nav-link" (click)="handleClick(data)"
+			   [ngClass]="{'active': isMenuActive(data)}"
+			   *ngIf="data.items && data.items.length > 0">
+				<em class="sidenav-link-icon"
+					[pTooltip]="!collapsed ? data.label : ''"
+					[class]="data.icon"
+					(click)="toggleAdminItems()">
+				</em>
+				<span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+							{{ data.label}}
+						</span>
+				<em *ngIf="data.items && collapsed" class="menu-collapse-icon"
+					[ngClass]="!data.expanded ? 'fa fa-angle-right':'fa fa-angle-down'"></em>
+			</a>
+			<a class="sidenav-nav-link"
+			   *ngIf="!data.items || (data.items && data.items.length===0)"
+			   [routerLink]="[data.routerlink]"
+			   routerLinkActive="active"
+			   [routerLinkActiveOptions]="{exact:true}">
+				<em class="sidenav-link-icon"
+					[pTooltip]="!collapsed ? data.label : ''"
+					[class]="data.icon"></em>
+				<span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+					{{ data.label }}
+			   </span>
+			</a>
+			<div *ngIf="(collapsed && data.items && data.items.length > 0)">
+				<app-sublevel-menu [collapsed]="collapsed"
+								   [multiple]="multiple"
+								   [expanded]="data.expanded"
+								   [data]="data">
+				</app-sublevel-menu>
+			</div>
+		</li>
+	</ul>
+</div>
+<p-toast></p-toast>
+<app-reset-password *ngIf="modalPasswodEditVisible"
+					[(visible)]="modalPasswodEditVisible"
+					[utilisateur]="utilisateur">
+</app-reset-password>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

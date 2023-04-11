@@ -1,0 +1,32 @@
+::ng-deep {
+	.application-back {
+		.p-panel .p-panel-header {
+			border: 1px solid #ef9337;
+			padding: 1rem;
+			background: #ef9337;
+			color: #f5f6f6;
+			border-top-right-radius: 2px;
+			border-top-left-radius: 2px;
+		}
+	}
+
+	.application-front {
+		.p-panel .p-panel-header {
+			border: 1px solid rgb(77, 165, 48);
+			padding: 1rem;
+			background: rgb(77, 165, 48);
+			color: #f6f8f8;
+			border-top-right-radius: 2px;
+			border-top-left-radius: 2px;
+		}
+	}
+
+	.bordure {
+		border: solid 0.5px #d0cece;
+	}
+
+	.custom-container {
+		padding: 330px;
+	}
+}
+

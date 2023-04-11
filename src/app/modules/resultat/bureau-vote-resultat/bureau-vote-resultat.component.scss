@@ -1,0 +1,23 @@
+:host ::ng-deep {
+	.p-datatable {
+		.p-datatable-thead {
+			tr > th {
+				background: #c8c8c8;
+				&.col-total {
+					min-width: 75px;
+				}
+				&.col-lieu-vote {
+					min-width: 240px;
+				}
+			}
+		}
+	}
+}
+.collapse1{
+	border-bottom: unset !important;
+}
+.collapse2{
+	border-top: unset !important;
+	min-width: 140px;
+	max-width: 140px;
+}

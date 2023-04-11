@@ -1,0 +1,125 @@
+<div class="col-12 text-right" *ngIf="participations?.length">
+	<button type="button"
+			pButton pRipple icon="pi pi-file-excel"
+			class="p-button-success mr-2" pTooltip="Export XLSX"
+			tooltipPosition="bottom" (click)="exportExcel()">
+	</button>
+	<button type="button"
+			pButton pRipple icon="pi pi-file"
+			class="p-button-warning mr-2" pTooltip="Export CSV"
+			tooltipPosition="bottom" (click)="exportCSV()">
+	</button>
+</div>
+
+<p-table [value]="participations"
+		 styleClass="p-datatable-gridlines"
+		 [rowsPerPageOptions]="[30,40,50,60]"
+		 selectionMode="multiple"
+		 [loading]="loading"
+		 rowGroupMode="subheader"
+		 groupRowsBy="circonscription.designation"
+		 [scrollable]="true"
+		 scrollHeight="665px"
+		 sortField="circonscription.designation"
+		 sortMode="single"
+		 [paginator]="true"
+		 [rows]="30">
+	<ng-template pTemplate="header">
+		<tr>
+			<th width="180px" pSortableColumn="circonscription" *ngIf="typeScrutin !='PRESIDENTIELLE'"
+				class="text-center" [style]="{color:'#fafbfc',background:'rgb(158, 158, 158)'}">Circonscription
+				<p-sortIcon field="circonscription">
+				</p-sortIcon>
+			</th>
+			<th width="180px" pSortableColumn="bureauVote.designation"
+				class="text-center" [style]="{color:'#fafbfc',background:'rgb(158, 158, 158)'}">Lieu de vote - Bureau
+				de vote
+				<p-sortIcon field="bureauVote.designation"></p-sortIcon>
+			</th>
+			<th width="90px" pSortableColumn="nombreInscrits"
+				class="text-center" [style]="{color:'#fafbfc',background:'rgb(158, 158, 158)'}">Nombre
+				d'inscrits
+				<p-sortIcon field="nombreInscrits"></p-sortIcon>
+			</th>
+			<th width="90px" pSortableColumn="totalParticipants"
+				class="text-center" [style]="{color:'#fafbfc',background:'rgb(158, 158, 158)'}">Total votants
+				<p-sortIcon field="totalParticipants"></p-sortIcon>
+			</th>
+			<th width="90px" pSortableColumn="tauxParticipation"
+				class="text-center" [style]="{color:'#fafbfc',background:'rgb(158, 158, 158)'}">Taux de
+				participation
+				<p-sortIcon field="tauxParticipation"></p-sortIcon>
+			</th>
+			<th class="text-center" pSortableColumn="inventoryStatus" width="90px"
+				[style]="{color:'#fafbfc',background:'rgb(158, 158, 158)'}">Action
+			</th>
+		</tr>
+		<tr>
+			<th>
+				<p-columnFilter [showMenu]="false" [showClearButton]="false" type="text"
+								field="circonscription.designation" matchMode="contains">
+					<ng-template pTemplate="filter" let-filter="filterCallback" let-value="$implicit">
+						<input type="text" [style]="{width:'90%' }" maxlength="20" #valeur class="p-2 border"
+							   [value]="value"
+							   pInputText
+							   (input)="filter(valeur.value)">
+					</ng-template>
+				</p-columnFilter>
+			</th>
+			<th>
+				<p-columnFilter [showMenu]="false" [showMatchModes]="false" [showClearButton]="false"
+								type="text" field="bureauVote.designation" matchMode="contains">
+					<ng-template pTemplate="filter" let-filter="filterCallback" let-value="$implicit">
+						<input type="text" #valeur class="p-2 border"
+							   [value]="value"
+							   maxlength="20"
+							   pInputText
+							   (input)="filter(valeur.value)">
+					</ng-template>
+				</p-columnFilter>
+			</th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="groupheader" let-participation>
+		<tr pRowGroupHeader class="font-bold ligne-grise">
+			<td class="text-center" colspan="6">
+				{{participation.circonscription.designation}}
+			</td>
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="body" let-participation>
+		<tr>
+			<td>
+				{{participation.circonscription.designation}}
+			</td>
+			<td>{{ participation?.bureauVote.designation }}</td>
+			<td class="text-right">{{participation.nombreInscrits | number: '1.0-0' | replace: ',':' '}}
+			</td>
+			<td class="text-right">{{participation.totalParticipants | number: '1.0-0' | replace: ',':' '}}
+			</td>
+			<td class="text-right">{{participation.tauxParticipation}}%</td>
+			<td width="20px" class="text-center">
+				<button pButton pRipple type="button" pTooltip="Détail de la participation" icon="pi pi-eye"
+						(click)="ouvrirModalDetailParticipation(participation)"
+						class="p-button-rounded p-button-text p-button-success buttonrow-span">
+				</button>
+			</td>
+		</tr>
+	</ng-template>
+	<ng-template pTemplate="emptymessage">
+		<tr>
+			<td class="text-center" colspan="6">Aucune participation trouvée</td>
+		</tr>
+	</ng-template>
+</p-table>
+
+<app-detail-participation [participation]="participation"
+						  [participationDialog]="modalParticipationVisible"
+						  *ngIf="modalParticipationVisible"
+						  (visibleChange)="visibleChange($event)">
+</app-detail-participation>
+<p-toast position="bottom-right" key="notification"></p-toast>

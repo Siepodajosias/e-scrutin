@@ -1,0 +1,42 @@
+<div class="grid custom-container">
+	<div class="col-6 mt-3 application-front pl-2">
+		<p-panel header="Application frontend">
+			<div class="grid">
+				<div class="bordure col-2">
+					<span>Version</span>
+				</div>
+				<div class="bordure col-10">
+					<span *ngIf="versionFrontend">{{ versionFrontend.version }}</span>
+				</div>
+				<div class="bordure col-2">
+					<span>Sha1</span>
+				</div>
+				<div class="bordure col-10">
+					<span *ngIf="versionFrontend">{{ versionFrontend.sha1 }}</span>
+				</div>
+			</div>
+		</p-panel>
+	</div>
+
+	<div class="col-6 mt-3 application-back pr-2">
+		<p-panel header="Application backend">
+			<div class="grid">
+				<div class="bordure col-2">
+					<span>Version</span>
+				</div>
+				<div class="bordure col-10">
+					<span *ngIf="versionBackend">{{ versionBackend.version }}</span>
+				</div>
+				<div class="bordure col-2">
+					<span>Sha1</span>
+				</div>
+				<div class="bordure col-10">
+					<span *ngIf="versionBackend">{{ versionBackend.sha1 }}</span>
+				</div>
+			</div>
+		</p-panel>
+	</div>
+</div>
+
+
+

@@ -1,0 +1,189 @@
+<p-table [value]="utilisateurs"
+		 [paginator]="true"
+		 [rows]="10"
+		 [showCurrentPageReport]="true"
+		 currentPageReportTemplate="De {first} à {last} sur {totalRecords} utilisateurs"
+		 responsiveLayout="scroll"
+		 [rowsPerPageOptions]="[10, 20, 30, 40]"
+		 [resizableColumns]="true"
+		 [loading]="loading"
+		 [scrollable]="true"
+		 scrollHeight="740px"
+		 selectionMode="multiple"
+		 styleClass="p-datatable-gridlines">
+	<ng-template pTemplate="caption">
+		<div class="row justify-content-end pr-1">
+			<button pButton pRipple label="Créer un nouvel utilisateur"
+					icon="pi pi-plus"
+					class="p-button-success col-2"
+					(click)="ouvrirModalEdition()">
+			</button>
+		</div>
+	</ng-template>
+	<ng-template pTemplate="header">
+		<tr>
+			<th pSortableColumn="nom" scope="col" class="text-center">
+				<span>Nom</span>
+				<span class="text-center">
+					<p-sortIcon field="nom"></p-sortIcon>
+				</span>
+			</th>
+			<th pSortableColumn="prenoms" scope="col" class="text-center">
+				<span>Prénoms</span>
+				<span class="text-center">
+					<p-sortIcon field="prenoms"></p-sortIcon>
+				</span>
+			</th>
+			<th pSortableColumn="username" scope="col" class="text-center">
+				<span>Nom d'utilisateur</span>
+				<span class="text-center">
+					<p-sortIcon field="username"></p-sortIcon>
+				</span>
+			</th>
+			<th pSortableColumn="role" scope="col" class="text-center">
+				<span>Rôle</span>
+				<span class="text-center">
+					<p-sortIcon field="role"></p-sortIcon>
+				</span>
+			</th>
+			<th pSortableColumn="role" scope="col" class="text-center">
+				<span>Statut</span>
+				<span class="text-center">
+					<p-sortIcon field="statut"></p-sortIcon>
+				</span>
+			</th>
+			<th scope="col" class="text-center">
+				<span>Actions</span>
+			</th>
+		</tr>
+		<tr>
+			<th>
+				<p-columnFilter [showClearButton]="false"
+								type="text" field="nom"
+								matchMode="contains">
+					<ng-template pTemplate="filter"
+								 let-filter="filterCallback"
+								 let-value="$implicit">
+						<input type="text" #inputNom class="p-2 border"
+							   maxlength="20"
+							   [value]="value"
+							   pInputText
+							   (input)="filter(inputNom.value)">
+					</ng-template>
+				</p-columnFilter>
+			</th>
+			<th>
+				<p-columnFilter [showClearButton]="false"
+								type="text"
+								field="prenoms"
+								matchMode="contains">
+					<ng-template pTemplate="filter"
+								 let-filter="filterCallback"
+								 let-value="$implicit">
+						<input type="text" #inputPrenoms
+							   class="p-2 border"
+							   maxlength="20"
+							   [value]="value"
+							   pInputText
+							   (input)="filter(inputPrenoms.value)">
+					</ng-template>
+				</p-columnFilter>
+			</th>
+			<th>
+				<p-columnFilter [showClearButton]="false"
+								type="text"
+								field="username"
+								matchMode="contains">
+					<ng-template pTemplate="filter"
+								 let-filter="filterCallback"
+								 let-value="$implicit">
+						<input type="text" #inputUsername class="p-2 border"
+							   maxlength="20"
+							   [value]="value"
+							   pInputText
+							   (input)="filter(inputUsername.value)">
+					</ng-template>
+				</p-columnFilter>
+			</th>
+			<th>
+				<p-columnFilter [showClearButton]="false"
+								field="role" matchMode="equals"
+								[showMenu]="false">
+					<ng-template pTemplate="filter"
+								 let-value let-filter="filterCallback">
+						<p-dropdown appendTo="body"
+									[options]="roles"
+									optionLabel="designation"
+									class="filtre-role"
+									dataKey="code"
+									[autoDisplayFirst]="false"
+									placeholder="Aucun rôle sélectionné"
+									(onChange)="filter($event.value?.code)"
+									[showClear]="true">
+						</p-dropdown>
+					</ng-template>
+				</p-columnFilter>
+			</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</ng-template>
+
+	<ng-template pTemplate="body" let-utilisateur>
+		<tr>
+			<td>{{ utilisateur.nom | uppercase }} </td>
+			<td>{{ utilisateur.prenoms | titlecase }} </td>
+			<td>{{ utilisateur.username }} </td>
+			<td>
+				{{ afficherRole(utilisateur.role) }}
+			</td>
+			<td class="text-center">
+				<p-tag *ngIf="utilisateur.statut === STATUT_NOUVEAU" value="Nouveau" severity="info"></p-tag>
+				<p-tag *ngIf="utilisateur.statut === STATUT_ACTIF" value="Actif" severity="success"></p-tag>
+				<p-tag *ngIf="utilisateur.statut === STATUT_INACTIF" value="Inactif" severity="danger"></p-tag>
+			</td>
+			<td class="text-center col-actions">
+				<button #action1 pButton pRipple type="button" id="editerUtilisateur"
+						icon="pi pi-pencil"
+						pTooltip="Modifier"
+						tooltipPosition="left"
+						class="p-button-rounded p-button-text"
+						(click)="ouvrirModalEdition(utilisateur)">
+				</button>
+				<button pButton pRipple type="button"
+						icon="pi pi-trash"
+						pTooltip="Supprimer"
+						tooltipPosition="left"
+						class="p-button-rounded p-button-text"
+						(click)="supprimerUtilisateur(utilisateur)">
+				</button>
+				<button pButton pRipple type="button"
+						*ngIf="utilisateur.statut === STATUT_ACTIF"
+						icon="pi pi-minus-circle"
+						pTooltip="Désactiver"
+						tooltipPosition="left"
+						class="p-button-rounded p-button-text"
+						(click)="activerOuDesactiverUtilisateur(utilisateur, false)">
+				</button>
+				<button pButton pRipple type="button"
+						*ngIf="utilisateur.statut === STATUT_INACTIF"
+						icon="pi pi-check-circle"
+						pTooltip="Activer"
+						tooltipPosition="left"
+						class="p-button-rounded p-button-text"
+						(click)="activerOuDesactiverUtilisateur(utilisateur, true)">
+				</button>
+			</td>
+		</tr>
+	</ng-template>
+</p-table>
+
+<utilisateur-modal *ngIf="modalUtilisateurVisible"
+				   [(visible)]="modalUtilisateurVisible"
+				   [utilisateur]="utilisateur"
+				   [actions]="actions"
+				   (utilisateurModifie)="recupererUtilisateurs()">
+</utilisateur-modal>
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+

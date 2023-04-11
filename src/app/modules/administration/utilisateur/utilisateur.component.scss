@@ -1,0 +1,54 @@
+:host {
+	::ng-deep {
+		.p-datatable {
+			tr {
+				th {
+					background: #9E9E9EFF;
+					color: #fafbfc;
+
+					&:hover, &:focus {
+						background: #9E9E9EFF !important;
+						color: #fafbfc !important;
+					}
+
+					.p-column-filter-menu-button {
+						color: #fafbfc;
+						border: unset;
+
+						&:hover, &:focus {
+							color: #fafbfc;
+							background: transparent;
+							border: unset;
+						}
+					}
+				}
+
+				td.col-actions {
+					.p-button.p-button-text {
+						background-color: transparent;
+						color: transparent;
+						border-color: transparent;
+					}
+				}
+
+				&:hover, &:focus {
+					background: #1e9d22;
+
+					td.col-actions {
+						.p-button.p-button-text {
+							color: white;
+							border-color: transparent;
+						}
+					}
+				}
+			}
+
+			.filtre-role {
+				.p-dropdown .p-dropdown-label {
+					width: 100px !important;
+				}
+			}
+		}
+	}
+}
+

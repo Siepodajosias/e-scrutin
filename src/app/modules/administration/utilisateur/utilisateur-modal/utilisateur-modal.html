@@ -1,0 +1,89 @@
+<p-dialog [(visible)]="visible"
+		  [style]="{width: '700px'}"
+		  [header]="afficherTitre()"
+		  [modal]="true"
+		  styleClass="p-fluid"
+		  (onShow)="onOuverture()"
+		  (onHide)="fermerModal()">
+	<form #form="ngForm" [formGroup]="utilisateurForm" (submit)="enregistrer()">
+		<div class="grid py-5">
+			<div class="col-6">
+				<div class="mb-1">
+					<label class="label-required">Nom</label>
+					<input type="text"
+						   maxlength="150"
+						   pInputText
+						   formControlName="nom"
+						   [ngClass]="{'ng-invalid ng-dirty':
+						   isInvalide(utilisateurForm.controls['nom'], form.submitted)}">
+				</div>
+				<div *ngIf="isAfficherFeedBackError(utilisateurForm.controls['nom'], form.submitted)"
+					 class="text-danger text-sm d-flex flex-row-reverse">
+					{{ MESSAGE_CHAMP_OBLIGATOIRE }}
+				</div>
+			</div>
+
+			<div class="col-6">
+				<div class="mb-1">
+					<label class="label-required">Prénoms</label>
+					<input type="text"
+						   maxlength="250"
+						   pInputText
+						   formControlName="prenoms"
+						   [ngClass]="{'ng-invalid ng-dirty':
+						   isInvalide(utilisateurForm.controls['prenoms'], form.submitted)}">
+				</div>
+				<div *ngIf="isAfficherFeedBackError(utilisateurForm.controls['prenoms'], form.submitted)"
+					 class="text-danger text-sm d-flex flex-row-reverse">
+					{{ MESSAGE_CHAMP_OBLIGATOIRE }}
+				</div>
+			</div>
+			<div class="col-6">
+				<div>
+					<label class="label-required">Nom d'utilisateur</label>
+					<input type="text"
+						   maxlength="150"
+						   pInputText
+						   formControlName="username"
+						   [ngClass]="{'ng-invalid ng-dirty':
+						   isInvalide(utilisateurForm.controls['username'], form.submitted)}">
+				</div>
+				<div *ngIf="isAfficherFeedBackError(utilisateurForm.controls['username'], form.submitted)"
+					 class="text-danger text-sm d-flex flex-row-reverse">
+					{{ MESSAGE_CHAMP_OBLIGATOIRE }}
+				</div>
+			</div>
+			<div class="col-6">
+				<label class="label-required">Rôle</label>
+				<p-dropdown appendTo="body"
+							[autoDisplayFirst]="false"
+							[options]="roles"
+							dataKey="code"
+							formControlName="role"
+							optionLabel="designation"
+							[ngClass]="{'ng-invalid ng-dirty':
+							isInvalide(utilisateurForm.controls['role'], form.submitted)}">
+				</p-dropdown>
+				<div *ngIf="isAfficherFeedBackError(utilisateurForm.controls['role'], form.submitted)"
+					 class="text-danger text-sm d-flex flex-row-reverse">
+					{{ MESSAGE_CHAMP_OBLIGATOIRE }}
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<div class="flex justify-content-end">
+				<p-button *ngIf="!loading" label="Enregistrer"
+						  type="submit"
+						  styleClass="p-button-sm bg-green-600">
+					<em class="pi pi-save mr-1"></em>
+				</p-button>
+				<p-button *ngIf="!loading" label="Annuler"
+						  icon="pi pi-times"
+						  styleClass="p-button-sm bg-orange-400 ml-2"
+						  (click)="fermerModal()">
+				</p-button>
+				<p-progressSpinner class="m-0" *ngIf="loading"></p-progressSpinner>
+			</div>
+		</div>
+	</form>
+</p-dialog>

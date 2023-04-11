@@ -1,0 +1,149 @@
+<div class="body" [ngClass]="recupererClassBody()">
+	<div class="grid">
+		<div class="surface-card shadow-1 mb-2" [style]="{width: '1800px'}" *ngIf="isAfficherHeader()">
+			<div class="col-12">
+				<div class="flex justify-content-between flex-wrap">
+					<div>
+						<div>
+							<label class="label-required">Année</label>
+						</div>
+						<p-dropdown [style]="{width: '120px', marginRight:'2px'}"
+									[options]="annees"
+									[disabled]="!annees?.length || annees?.length === 1"
+									placeholder="Choisir..."
+									(onChange)="onSelectionAnnee()"
+									[(ngModel)]="anneeSelectionnee"
+									[showClear]="true">
+						</p-dropdown>
+					</div>
+					<div>
+						<div>
+							<label class="label-required">Type de scrutin</label>
+						</div>
+						<p-dropdown [disabled]="!anneeSelectionnee || typeScrutins?.length === 1"
+									[style]="{width: '180px', marginRight:'2px'}"
+									[options]="typeScrutins"
+									placeholder="Choisir..."
+									(onChange)="onSelectionTypeScrutin()"
+									[(ngModel)]="typeScrutinSelectionne"
+									[showClear]="true">
+						</p-dropdown>
+					</div>
+					<div>
+						<div>
+							<label class="label-required">Tour</label>
+						</div>
+						<p-dropdown [disabled]="!anneeSelectionnee ||
+						            !typeScrutinSelectionne || tours?.length === 1"
+									[style]="{width: '150px', marginRight:'2px'}"
+									[options]="tours"
+									optionLabel="designation"
+									placeholder="Choisir..."
+									(onChange)="onSelectionTour()"
+									[(ngModel)]="tourSelectionne"
+									[showClear]="true">
+						</p-dropdown>
+					</div>
+					<div>
+						<div>
+							<label [ngClass]="{'label-required': isResultatsDetailles()}">Région</label>
+						</div>
+						<p-multiSelect
+								[style]="{width: '220px', marginRight:'2px', marginTop:'0px'}"
+								[options]="choixFiltreRegion"
+								[disabled]="!regions?.length ||
+								!typeScrutinSelectionne ||
+								!anneeSelectionnee || !tourSelectionne
+								|| choixFiltreRegion?.length === 1"
+								[(ngModel)]="regionSelectionnees"
+								defaultLabel="Choisir..."
+								emptyFilterMessage="Aucune région trouvée"
+								(onChange)="onSelectionRegion()"
+								selectedItemsLabel="{0} sélectionnées"
+								[maxSelectedLabels]="1"
+								optionLabel="value"
+								dataKey="code">
+						</p-multiSelect>
+					</div>
+					<div>
+						<div>
+							<label [ngClass]="{'label-required': isResultatsDetailles()}">Circonscription</label>
+						</div>
+						<p-multiSelect
+								[style]="{width: '200px', marginRight:'2px', marginTop:'0px'}"
+								[options]="optionsFiltreCirconscription"
+								[(ngModel)]="circonscriptionSelectionnees"
+								[disabled]="!circonscriptions?.length ||
+								!regionSelectionnees?.length ||
+								optionsFiltreCirconscription?.length === 1"
+								emptyMessage="Aucune circonscription trouvée"
+								emptyFilterMessage="Aucune circonscription trouvée"
+								defaultLabel="Choisir..."
+								selectedItemsLabel="{0} sélectionnées"
+								[maxSelectedLabels]="1"
+								dataKey="id"
+								(onChange)="onSelectionCirconscription()"
+								optionLabel="value">
+						</p-multiSelect>
+					</div>
+					<div>
+						<div>
+							<label [ngClass]="{'label-required': isResultatsDetailles()}">
+								Commission locale
+							</label>
+						</div>
+						<p-multiSelect
+								[style]="{width: '220px', marginRight:'2px', marginTop:'0px'}"
+								[options]="optionsFiltreCommissionLocale"
+								[(ngModel)]="commissionLocaleSelectionnees"
+								[disabled]="!commissionLocales?.length ||
+								!circonscriptionSelectionnees?.length ||
+								optionsFiltreCommissionLocale?.length === 1"
+								emptyMessage="Aucune commission locale trouvée"
+								emptyFilterMessage="Aucune commission locale trouvée"
+								defaultLabel="Choisir..."
+								selectedItemsLabel="{0} sélectionnées"
+								[maxSelectedLabels]="1"
+								dataKey="id"
+								optionLabel="value">
+						</p-multiSelect>
+					</div>
+					<div *ngIf="isCarteInteractive()">
+						<div>
+							<label>Afficher par</label>
+						</div>
+						<div>
+							<p-radioButton name="decoupage" value="REGION" label="Région" [(ngModel)]="decoupage">
+							</p-radioButton>
+						</div>
+						<div>
+							<p-radioButton name="decoupage" value="COMMUNE" label="Commune" [(ngModel)]="decoupage">
+							</p-radioButton>
+						</div>
+					</div>
+					<div class="pull-right boutonValiderVider">
+						<button [disabled]="desactiverBoutonFiltre()" pButton pRipple type="button"
+								icon="pi pi-search"
+								pTooltip="Rechercher"
+								tooltipPosition="left"
+								class="p-button-rounded ml-8 mt-4 p-button-raised bg-green-600
+								p-button-text text-50 hover:bg-orange-400 p-button-sm"
+								(click)="validerfiltre()">
+						</button>
+						<button pButton pRipple type="button"
+								icon="pi pi-times"
+								pTooltip="Vider"
+								tooltipPosition="left"
+								class="p-button-rounded ml-5 mt-4 p-button-raised bg-orange-400
+								p-button-text text-50 hover:bg-green-600 p-button-sm"
+								(click)="viderfiltre()">
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<router-outlet></router-outlet>
+		</div>
+	</div>
+</div>

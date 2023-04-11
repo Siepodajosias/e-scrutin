@@ -1,0 +1,69 @@
+<p-dialog [draggable]="false" header="Détails participation" [(visible)]="participationDialog" [style]="{width: '60vw'}"
+		  [modal]="true" styleClass="p-fluid"
+		  [resizable]="false"
+		  (onHide)="fermerModal()">
+	<div class="grid mb-5 mt-3">
+		<div class="bordure col-4 surface-100">
+			<span>REGION</span>
+		</div>
+		<div class="bordure col-8">
+			<span *ngIf="participation">{{ participation.region.designation}}</span>
+		</div>
+		<div class="bordure col-4 surface-100">
+			<span>CIRCONSCRIPTION</span>
+		</div>
+		<div class="bordure col-8">
+			<span *ngIf="participation"> {{participation.circonscription.designation}}</span>
+		</div>
+		<div class="bordure col-4 surface-100">
+			<span>COMMISSION ELECTORALE LOCALE</span>
+		</div>
+		<div class="bordure col-8">
+			<span *ngIf="participation">{{participation.commissionLocale.designation}}</span>
+		</div>
+		<div class="bordure col-4 surface-100">
+			<span>LIEU DE VOTE</span>
+		</div>
+		<div class="bordure col-8">
+			<span *ngIf="participation">{{participation.lieuVote.designation}}</span>
+		</div>
+		<div class="bordure col-4 surface-100">
+			<span>BUREAU DE VOTE</span>
+		</div>
+		<div class="bordure col-8">
+			<span *ngIf="participation">{{participation.bureauVote.code}}</span>
+		</div>
+		<!--
+		<div class="col-3">
+
+			<span>HEURE D'OUVERTURE</span>
+
+		</div>
+		<div class="bordure col-2">
+			<span *ngIf="participation">{{participation.heureOuverture}}</span>
+		</div>
+		-->
+		<div class="bordure col-4 surface-100">
+			<span>TOTAL INSCRITS</span>
+		</div>
+		<div class="bordure col-8">
+			<span *ngIf="participation">{{participation.nombreInscrits | number: '1.0-0' | replace: ',':' '}}</span>
+		</div>
+		<div class="bordure col-4 surface-100">
+			<span>TOTAL VOTANTS</span>
+		</div>
+		<div class="bordure col-8">
+			<span *ngIf="participation">{{participation.totalParticipants | number: '1.0-0' | replace: ',':' '}}</span>
+		</div>
+		<div class="bordure  col-4 surface-100">
+			<span>TAUX GLOBAL DE PARTICIPATION</span>
+		</div>
+		<div class="bordure col-8">
+			<span *ngIf="participation">{{participation.tauxParticipation}}%</span>
+		</div>
+	</div>
+	<ng-template pTemplate="footer">
+		<p-button (click)="fermerModal()" label="Fermer" styleClass="p-button-success">
+		</p-button>
+	</ng-template>
+</p-dialog>

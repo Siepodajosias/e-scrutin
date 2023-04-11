@@ -1,0 +1,24 @@
+:host {
+	::ng-deep {
+		.p-datatable {
+			tr:hover {
+				color: #323130 !important;
+			}
+
+			.p-datatable-tbody {
+				tr:not(.ligne-orange, .ligne-grise):hover {
+					color: white !important;
+				}
+			}
+		}
+
+		.ligne-orange {
+			background-color: orange !important;
+		}
+
+		.ligne-grise {
+			background-color: lightgrey !important;
+
+		}
+	}
+}

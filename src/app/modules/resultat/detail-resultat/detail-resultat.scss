@@ -1,0 +1,24 @@
+.bordure{
+	border:solid 1px #d0cece;
+}
+
+:host {
+	::ng-deep {
+		.p-datatable {
+			tr:hover {
+				color: #323130 !important;
+			}
+
+			.p-datatable-tbody {
+				tr:not(.ligne-orange, .ligne-grise):hover {
+					color: white !important;
+				}
+			}
+
+			tr > th {
+				color: #fafbfc;
+				background: #9E9E9EFF;
+			}
+		}
+	}
+}

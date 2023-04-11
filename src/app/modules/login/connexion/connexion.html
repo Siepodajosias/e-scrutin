@@ -1,0 +1,47 @@
+<div class="flex justify-content-center flex-wrap position">
+	<form [formGroup]="loginForm" (ngSubmit)="connexion()">
+		<div class="message-formulaire d-flex">
+			<div class="message-bienvenue">
+				<h1>BIENVENUE SUR e-SCRUTIN WEB</h1>
+				<p class="presentation">La plateforme de suivi des scrutins électoraux</p>
+				<div class="armoirie">
+					<img src="../../../../assets/img/armoirie.png" alt="armoirie de la côte d'ivoire">
+				</div>
+				<p class="devise">UNION - DISCIPLINE - TRAVAIL</p>
+			</div>
+			<div class="formulaire">
+				<div class="logo-cei">
+					<img src="../../../../assets/img/cei.png" alt="logo cei">
+				</div>
+				<div class="partie-connexion">
+					<h2 class="titre">Connexion </h2>
+					<div class="p-inputgroup mt-4 login">
+						<span class="p-inputgroup-addon"><i class="fa fa-user"></i></span>
+						<input pInputText type="text" formControlName="login" placeholder="Nom d'utilisateur"
+							   [style]="{'border': '1px solid #605e5c !important;'}">
+					</div>
+					<div class="p-inputgroup mt-4 mot-passe">
+						<span class="p-inputgroup-addon"><i class="fa fa-lock"></i></span>
+						<p-password formControlName="motPasse" [toggleMask]="true" [feedback]="false"
+									placeholder="Mot de passe"
+									[style]="{'width': '20.5rem', 'height' : '38px'}"></p-password>
+					</div>
+					<div class="flex justify-content-end flex-wrap">
+						<button pButton *ngIf="!isLoading" label="Se connecter"
+								class="p-button-sm mt-4 bouton-connexion" type="submit"></button>
+						<p-progressSpinner *ngIf="isLoading"></p-progressSpinner>
+					</div>
+				</div>
+				<span *ngIf="messageActif" class="flex justify-content-center mt-6">
+						<p-message severity="error" [text]="messageErreur"></p-message>
+				</span>
+			</div>
+		</div>
+	</form>
+</div>
+<p-toast></p-toast>
+<app-reset-password *ngIf="modalPasswodEditVisible"
+					[(visible)]="modalPasswodEditVisible"
+					[token]="token"
+					[utilisateur]="utilisateur">
+</app-reset-password>

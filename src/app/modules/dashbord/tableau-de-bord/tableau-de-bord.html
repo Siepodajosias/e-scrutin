@@ -1,0 +1,329 @@
+<div class="text-center application-back">
+	<p-progressSpinner *ngIf="isLoading"></p-progressSpinner>
+</div>
+
+<div class="tableau-de-bord-container surface-ground" *ngIf="!isLoading">
+	<div class="grid">
+		<div class="col-xl-3 col-md-6 col-sm-12 p-1">
+			<div class="surface-card shadow-1 p-3 border-round">
+				<div class="flex justify-content-between mb-3">
+					<div>
+						<span class="block text-500 font-bold mb-3">Nombre de lieux de vote</span>
+						<div [countUp]="donneesTableauDeBord?.nombreLieuVote"
+							 [duration]="1000"
+							 class="text-900 font-medium text-xl">
+							{{ donneesTableauDeBord?.nombreLieuVote | number: '1.0-0' | replace: ',':' ' }}
+						</div>
+					</div>
+					<div class="flex align-items-center justify-content-center bg-green-500 border-round
+					    icone-chiffre">
+						<i class="pi pi-map-marker text-white text-xl"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-3 col-md-6 col-sm-12 p-1">
+			<div class="surface-card shadow-1 p-3 border-round">
+				<div class="flex justify-content-between mb-3">
+					<div>
+						<span class="block text-500 font-bold mb-3">Nombre de bureaux de vote</span>
+						<div [countUp]="donneesTableauDeBord?.nombreBureauVote"
+							 [duration]="1000"
+							 class="text-900 font-medium text-xl">
+							{{ donneesTableauDeBord?.nombreBureauVote | number: '1.0-0' | replace: ',':' ' }}
+						</div>
+					</div>
+					<div class="flex align-items-center justify-content-center bg-green-500 border-round
+					    icone-chiffre">
+						<i class="pi pi-home text-white text-xl"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-3 col-md-6 col-sm-12 p-1">
+			<div class="surface-card shadow-1 p-3 border-round">
+				<div class="flex justify-content-between mb-3">
+					<div>
+						<span class="block text-500 font-bold mb-3">Total inscrits</span>
+						<div [countUp]="donneesTableauDeBord?.nombreInscrits"
+							 [duration]="1000"
+							 class="text-900 font-medium text-xl"></div>
+					</div>
+					<div class="flex align-items-center justify-content-center bg-green-500 border-round
+						 icone-chiffre">
+						<i class="pi pi-users text-white text-xl"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-3 col-md-6 col-sm-12 p-1">
+			<div class="surface-card shadow-1 p-3 border-round">
+				<div class="flex justify-content-between mb-3">
+					<div>
+						<span class="block text-500 font-bold mb-3">Taux global de participation</span>
+						<span [countUp]="donneesTableauDeBord?.tauxParticipation"
+							 [duration]="1000"
+							 class="text-900 font-medium text-xl">
+						</span>
+						<span class="text-900 font-medium text-xl" *ngIf="donneesTableauDeBord?.tauxParticipation">%</span>
+					</div>
+					<div class="flex align-items-center justify-content-center bg-green-500 border-round
+						 icone-chiffre">
+						<i class="pi pi-check-square text-white text-xl"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="surface-ground mt-3" *ngIf="!isLoading">
+	<div class="grid">
+		<div class="col-xl-3 col-md-6 col-sm-12 p-1">
+			<div class="surface-card shadow-1 p-3 border-round">
+				<div class="flex justify-content-between mb-3">
+					<div>
+						<span class="block text-500 font-bold mb-3">Total votants</span>
+						<span class="text-900 font-medium text-xl"
+							  [countUp]="donneesTableauDeBord?.totalVotants"
+							  [duration]="1000">
+						</span>
+						<span class="text-900 font-medium mx-1 text-md" *ngIf="donneesTableauDeBord?.tauxParticipation">soit</span>
+						<span  *ngIf="donneesTableauDeBord?.tauxParticipation"
+							   [countUp]="donneesTableauDeBord?.tauxParticipation"
+							  [duration]="1000"
+							  class="text-900 font-medium text-lg">
+						</span>
+						<span class="text-900 font-medium text-lg" *ngIf="donneesTableauDeBord?.tauxParticipation">%</span>
+						<span class="text-900 font-medium ml-1 text-md" *ngIf="donneesTableauDeBord?.tauxParticipation">des votants</span>
+						<p-progressBar [value]="donneesTableauDeBord?.tauxParticipation"
+									   color="#047b04"
+									   [style]="{height: '8px'}">
+						</p-progressBar>
+					</div>
+					<div class="flex align-items-center justify-content-center bg-green-500 border-round
+						 icone-chiffre">
+						<i class="pi pi-chart-pie text-white text-xl"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-3 col-md-6 col-sm-12 p-1">
+			<div class="surface-card shadow-1 p-3 border-round">
+				<div class="flex justify-content-between mb-3">
+					<div>
+						<span class="block text-500 font-bold mb-3">Bulletins nuls</span>
+						<span [countUp]="donneesTableauDeBord?.nombreBulletinsNuls"
+							  [duration]="1000"
+							  class="text-900 font-medium text-xl">
+						</span>
+						<span class="text-900 font-medium mx-1 text-md" *ngIf="tauxBulletinNuls">soit</span>
+						<span *ngIf="tauxBulletinNuls"
+							  class="text-900 font-medium text-lg"
+							  [countUp]="tauxBulletinNuls"
+							  [duration]="1000">
+						</span>
+						<span class="text-900 font-medium text-lg" *ngIf="tauxBulletinNuls">%</span>
+						<span class="text-900 font-medium ml-1 text-md" *ngIf="tauxBulletinNuls">des votants</span>
+						<p-progressBar [value]="tauxBulletinNuls"
+									   color="#047b04"
+									   [style]="{height: '8px'}">
+						</p-progressBar>
+					</div>
+					<div class="flex align-items-center justify-content-center bg-green-500 border-round
+						 icone-chiffre">
+						<i class="pi pi-ban text-white text-xl"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-3 col-md-6 col-sm-12 p-1">
+			<div class="surface-card shadow-1 p-3 border-round">
+				<div class="flex justify-content-between mb-3">
+					<div>
+						<span class="block text-500 font-bold mb-3">Suffrages exprimés</span>
+						<span [countUp]="donneesTableauDeBord?.suffragesExprimes"
+							 [duration]="1000"
+							 class="text-900 font-medium text-xl">
+						</span>
+						<span class="text-900 font-medium mx-1 text-md" *ngIf="tauxSuffragesExprimes">soit</span>
+						<span *ngIf="tauxSuffragesExprimes"
+							  class="text-900 font-medium text-lg"
+							  [countUp]="tauxSuffragesExprimes"
+							  [duration]="1000">
+						</span>
+						<span class="text-900 font-medium text-lg" *ngIf="tauxSuffragesExprimes">%</span>
+						<span class="text-900 font-medium ml-1 text-md" *ngIf="tauxSuffragesExprimes">des votants</span>
+						<p-progressBar [value]="tauxSuffragesExprimes"
+									   color="#047b04"
+									   [style]="{height: '8px'}">
+						</p-progressBar>
+					</div>
+					<div class="flex align-items-center justify-content-center bg-green-500 border-round
+						 icone-chiffre">
+						<i class="pi pi-file-excel text-white text-xl"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-3 col-md-6 col-sm-12 p-1">
+			<div class="surface-card shadow-1 p-3 border-round">
+				<div class="flex justify-content-between mb-3">
+					<div>
+						<span class="block text-500 font-bold mb-3">Bulletins blancs</span>
+						<span [countUp]="donneesTableauDeBord?.nombreBulletinsBlancs"
+							 [duration]="1000"
+							 class="text-900 font-medium text-xl">
+						</span>
+						<span class="text-900 font-medium mx-1 text-md" *ngIf="tauxBulletinsBlancs">soit</span>
+						<span *ngIf="tauxBulletinsBlancs"
+							  class="text-900 font-medium text-lg"
+							  [countUp]="tauxBulletinsBlancs"
+							  [duration]="1000">
+						</span>
+						<span class="text-900 font-medium text-lg" *ngIf="tauxBulletinsBlancs">%</span>
+						<span class="text-900 font-medium ml-1 text-md" *ngIf="tauxBulletinsBlancs">des suffrages</span>
+						<p-progressBar [value]="tauxBulletinsBlancs"
+									   color="#047b04"
+									   [style]="{height: '8px'}">
+						</p-progressBar>
+					</div>
+					<div class="flex align-items-center justify-content-center bg-green-500 border-round
+						 icone-chiffre">
+						<i class="pi pi-file text-white text-xl"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="surface-ground mt-3" *ngIf="!isLoading">
+	<p-tabView>
+		<p-tabPanel header="Résultat">
+			<div class="px-1 py-2 md:px-3 lg:px-5" *ngIf="donneesTableauDeBord && !isLoading">
+				<div class="grid">
+					<div class="col-12 md:col-12 lg:col-12">
+						<div class="surface-card p-3 border-round">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-xl-4 col-sm-12 p-3 ">
+										<h6 class="font-bold">Répartition des voix par
+											{{ !donneesTableauDeBord.multipleCircnscription ? 'candidat' : 'Parti politique' }}
+										</h6>
+										<p-table [value]="donneesTableauDeBord.voixPartis"
+												 styleClass="p-datatable-gridlines tableau-resultat">
+											<ng-template pTemplate="header">
+												<tr>
+													<th class="text-center">
+														{{ !donneesTableauDeBord.multipleCircnscription ? 'Candidats' : 'Partis politiques' }}
+													</th>
+													<th class="text-center">
+														{{ !donneesTableauDeBord.multipleCircnscription ? 'Nombre de voix' : 'Circonscriptions remportées' }}
+													</th>
+													<th class="text-center">Pourcentage</th>
+												</tr>
+											</ng-template>
+											<ng-template pTemplate="body" let-voixParti>
+												<tr>
+													<td>{{voixParti.nom}}</td>
+													<td class="text-right" style="width:5em; " [countUp]="voixParti.nombre"></td>
+													<td>{{voixParti.pourcentage | number: '1.2-2'}}%
+														<p-progressBar [value]="voixParti.pourcentage"
+																	   [color]="voixParti.codeCouleur"
+																	   [style]="{height: '8px'}">
+														</p-progressBar>
+													</td>
+												</tr>
+											</ng-template>
+										</p-table>
+									</div>
+									<div class="col-xl-8 col-md-12 p-3">
+										<div id="resultatParti"
+											 *ngIf="resultatParPartiChartOptions && nomsCandidats?.length &&
+											 nombreVoixParCandidat?.length && donneesTableauDeBord.multipleCircnscription">
+											<apx-chart [series]="resultatParPartiChartOptions.serie"
+													   [chart]="resultatParPartiChartOptions.chart"
+													   [labels]="resultatParPartiChartOptions.labels"
+													   [dataLabels]="resultatParPartiChartOptions.dataLabels"
+													   [title]="resultatParPartiChartOptions.title"
+													   [colors]="resultatParPartiChartOptions.colors"
+													   [responsive]="resultatParPartiChartOptions.responsive"
+											></apx-chart>
+										</div>
+										<div class="body"
+											 *ngIf="resultatParCandidatChartOptions && nomsCandidats?.length &&
+											 nombreVoixParCandidat?.length && !donneesTableauDeBord.multipleCircnscription">
+											<div class="clearfix">
+												<apx-chart [series]="resultatParCandidatChartOptions.series"
+														   [chart]="resultatParCandidatChartOptions.chart"
+														   [dataLabels]="resultatParCandidatChartOptions.dataLabels"
+														   [plotOptions]="resultatParCandidatChartOptions.plotOptions"
+														   [title]="resultatParCandidatChartOptions.title"
+														   [colors]="couleursParParti"
+														   [responsive]="resultatParCandidatChartOptions.responsive"
+														   [xaxis]="resultatParCandidatChartOptions.xaxis"
+														   [tooltip]="resultatParCandidatChartOptions.tooltip"
+														   [legend]="resultatParCandidatChartOptions.legend"
+														   [fill]="resultatParCandidatChartOptions.fill">
+												</apx-chart>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</p-tabPanel>
+		<p-tabPanel header="Genre">
+			<div class="px-1 py-2 md:px-3 lg:px-5" *ngIf="donneesTableauDeBord && !isLoading">
+				<div class="grid">
+					<div class="col-12 md:col-12 lg:col-12">
+						<div class="surface-card shadow-1 p-3 border-round">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-xl-12 col-sm-12 p-3 mb-2 ">
+										<h6 class="font-bold">Participation par genre</h6>
+									</div>
+									<div class="col-xl-3 col-sm-12 p-3 ">
+										<div>
+											<img src="assets/img/femme.png" alt="logo femme">
+										</div>
+									</div>
+									<div class="col-xl-2 col-sm-12 mt-8">
+										<div>
+											<h3 class="font-bold">Femmes</h3>
+											<h4 [countUp]="donneesTableauDeBord?.nombreFemmes" [duration]="1000"></h4>
+											<h4>{{ tauxParticipationFemme | number: '1.2-2'}}%</h4>
+											<p-progressBar [value]="tauxParticipationFemme"
+														   [color]="'#2a7d0d'"
+														   [style]="{height: '8px'}">
+											</p-progressBar>
+										</div>
+									</div>
+									<div class="col-xl-1 col-sm-12">
+										<p-divider layout="vertical"></p-divider>
+									</div>
+									<div class="col-xl-3 col-md-12 p-3">
+										<img src="assets/img/homme.png" alt="logo homme">
+									</div>
+									<div class="col-xl-2 col-md-12 mt-8">
+										<h3 class="font-bold">Hommes</h3>
+										<h4 [countUp]="donneesTableauDeBord?.nombreHommes" [duration]="1000"></h4>
+										<h4>{{ tauxParticipationHomme | number: '1.2-2'}}%</h4>
+										<p-progressBar [value]="tauxParticipationHomme"
+													   [color]="'#D28B21'"
+													   [style]="{height: '8px'}">
+										</p-progressBar>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</p-tabPanel>
+	</p-tabView>
+</div>
+<p-toast position="bottom-right" key="notification"></p-toast>
+

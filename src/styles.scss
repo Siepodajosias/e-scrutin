@@ -1,0 +1,275 @@
+body {
+
+	/**********************************************
+	* Global
+	**********************************************/
+	.main {
+		padding: 1rem;
+	}
+	font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !important;
+	font-size: 14px !important;
+	input {
+		&:focus {
+			border: solid 1px #3F51B5 !important;
+			outline: 0 none;
+			outline-offset: 0;
+			box-shadow: inset 0 0 0 1px #3F51B5 !important;
+		}
+
+		&:hover:not(.custom-input) {
+			border: solid 1px #106ebe !important;
+		}
+
+		&.custom-input {
+			border: solid 1px #7c7c7d !important;
+			border-radius: 5px;
+			width: 100%;
+			//margin-top: 0;
+
+			&:focus {
+				//border-top: unset !important;
+				//border-left: unset !important;
+				//border-right: unset !important;
+				box-shadow: unset !important;
+			}
+		}
+	}
+
+	button {
+		&.p-button {
+			min-width: 30px;
+			height: 30px;
+
+			&.btn-label {
+				min-width: 8rem;
+			}
+
+			&.btn-primary {
+				background: #3F51B5 !important;
+				color: #ffffff !important;
+				//border: unset !important;
+
+				&:focus {
+					box-shadow: unset;
+				}
+
+				&:hover {
+					box-shadow: unset;
+					background: #106ebe !important;
+				}
+			}
+
+			&.btn-secondary {
+				background: #ffffff !important;
+				color: #111 !important;
+				border: 1px solid #111 !important;
+
+				&:focus {
+					box-shadow: unset;
+				}
+
+				&:hover {
+					box-shadow: unset;
+					background: #ddd !important;
+				}
+			}
+
+			&.btn-transparent {
+				width: 1px;
+
+				.p-button {
+					background: transparent !important;
+					border: unset !important;
+					color: #ffffff !important;
+					min-width: 1px !important;
+					padding-left: 1px;
+				}
+			}
+
+			&.btn-transparent {
+				background: transparent !important;
+				border: unset !important;
+				color: #ffffff !important;
+			}
+
+		}
+	}
+
+	a {
+		&.link-primary {
+			min-width: 8rem;
+			height: 30px;
+			text-decoration: unset;
+			text-align: center;
+			padding-top: 3px;
+
+			background: #3F51B5 !important;
+			color: #ffffff !important;
+			border: unset !important;
+			border-radius: 20px;
+
+			&:focus {
+				box-shadow: unset;
+			}
+
+			&:hover {
+				box-shadow: unset;
+				color: #ffffff !important;
+				background: #106ebe !important;
+			}
+		}
+	}
+
+	label, span {
+		&.label-required:after {
+			content: "*";
+			color: red;
+			margin: 0 3px 0 3px;
+			position: relative;
+		}
+
+		&.input-label {
+			font-size: 12px;
+			//padding-left: 8px;
+			//bottom: -7px;
+			position: relative;
+		}
+	}
+
+	.input-invalid:before {
+		content: "Veuillez vérifier ce champ";
+		color: red;
+		margin: 40px 3px 0 0;
+		font-size: 11px;
+		width: 130px;
+		position: relative;
+	}
+
+	.input-required:after {
+		content: "Veuillez renseigner ce champ";
+		color: red;
+		margin: 40px 3px 0 0;
+		font-size: 11px;
+		width: 150px;
+		position: relative;
+	}
+
+
+	p-inputMask.custom-input, p-password.custom-input {
+		border: unset;
+		padding-left: 0;
+
+		&:hover {
+			border: unset;
+		}
+
+		input {
+			border: solid 1px #7c7c7d !important;
+			border-radius: 5px;
+			width: 100%;
+
+			&:focus, &:hover {
+				//border-top: unset !important;
+				//border-left: unset !important;
+				//border-right: unset !important;
+				box-shadow: unset !important;
+			}
+		}
+	}
+
+	.p-dropdown {
+		border: solid 1px #7c7c7d !important;
+		border-radius: 5px;
+		box-shadow: unset !important;
+		padding-left: 10px;
+
+		&:focus, &:hover {
+			box-shadow: unset !important;
+		}
+	}
+
+	.p-multiselect {
+		border: solid 1px #7c7c7d !important;
+		border-radius: 5px;
+		box-shadow: unset !important;
+		padding-left: 10px;
+		margin-top: 5px;
+		&:focus, &:hover {
+			box-shadow: unset !important;
+		}
+	}
+
+	.p-progress-spinner-svg {
+		height: 40%;
+	}
+
+	.p-progress-spinner-circle {
+		stroke: #4DA530FF !important;
+	}
+
+	.legend i {
+		width: 10px;
+		height: 10px;
+		float: left;
+		margin-right: 8px;
+		opacity: 0.7;
+	}
+
+	.info {
+		padding: 6px 8px;
+		font: 14px/16px Arial, Helvetica, sans-serif;
+		background: white;
+		background: rgba(255, 255, 255, 0.8);
+		box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+		border-radius: 5px;
+	}
+
+	.leaflet-tooltip {
+		border-color: #0000;
+		border-width: 1px;
+		background-color: white;
+		font-size: 10px;
+	}
+
+	.leaflet-popup-content {
+		width: 95% !important;
+	}
+
+	.leaflet-popup-content-wrapper {
+		width: 680px;
+	}
+
+	.popover-resultat {
+		width: 100%;
+		thead {
+			tr {
+				background: #529009;
+				th {
+					font-weight: bold;
+					color: white;
+				}
+			}
+		}
+	}
+
+	.blinking {
+		background: black;
+		color: #fff;
+		animation: fade 0.5s infinite alternate;
+
+	}
+
+	@keyframes fade {
+		from { opacity: 0.3; }
+	}
+
+	.orange {
+		background: orange !important;
+		color: white !important;
+	}
+
+	.vert {
+		background: #047b04 !important;
+		color: white !important;
+	}
+}

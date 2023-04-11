@@ -1,0 +1,83 @@
+<div class="col-12 text-right" *ngIf="tableauResultat?.resultats?.length">
+	<button  type="button" pButton pRipple icon="pi pi-file-excel" class="p-button-success mr-2" pTooltip="Export XLSX" tooltipPosition="bottom" (click)="exportExcel()"></button>
+	<button  type="button" pButton pRipple icon="pi pi-file" class="p-button-warning mr-2" pTooltip="Export CSV" tooltipPosition="bottom" (click)="exportCSV()"></button>
+</div>
+
+<div class="col-12">
+	<p-table [value]="tableauResultat?.resultats"
+			 sortField="circonscription.id"
+			 [loading]="loading"
+			 styleClass="p-datatable-gridlines"
+			 selectionMode="multiple"
+			 dataKey="circonscription.designation"
+			 rowGroupMode="subheader"
+			 groupRowsBy="circonscription.designation"
+			 [scrollable]="true"
+			 scrollHeight="645px"
+			 [paginator]="true"
+			 [rows]="30">
+		<ng-template pTemplate="header">
+			<tr>
+				<th width="20px" class="text-center" [style]="{color:'#fafbfc',background:'rgb(158, 158, 158)'}"></th>
+				<th width="120px" class="text-center" [style]="{color:'#fafbfc',background:'rgb(158, 158, 158)'}">
+					Partis politiques
+				</th>
+				<th width="120px" class="text-center" [style]="{color:'#fafbfc',background:'rgb(158, 158, 158)'}">
+					Candidats / Liste candidatures
+				</th>
+				<th width="20px" class="text-center" [style]="{color:'#fafbfc',background:'rgb(158, 158, 158)'}">Nombre de
+					voix obtenues
+				</th>
+				<th width="40px" class="text-center" [style]="{color:'#fafbfc',background:'rgb(158, 158, 158)'}">
+					Pourcentages
+				</th>
+				<th width="30px" class="text-center" [style]="{color:'#fafbfc',background:'rgb(158, 158, 158)'}">Action / Commission locale
+				</th>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="groupheader" let-resultat>
+			<tr pRowGroupHeader class="font-bold ligne-grise">
+				<td colspan="5" class="ml-2 text-center" style="font-size: 16px;">
+					{{ resultat.circonscription.designation }}
+				</td>
+				<td class="font-bold ml-2 text-center ">
+					<button pButton pRipple type="button" pTooltip="Détail des résultats" icon="pi pi-eye"
+							(click)="ouvrirModalDetailResultat(resultat)"
+							class="p-button-rounded p-button-text p-button-success mr-4 row-span">
+					</button>
+				</td>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="body" let-resultat>
+			<tr [style]="couleurCandidat( resultatCandidat,resultat.resultatCandidats )"
+				*ngFor="let resultatCandidat of resultat.resultatCandidats; let index = index">
+				<td class="text-center"> {{ index + 1 }}</td>
+				<td>
+					{{ resultatCandidat.partiPolitique }}
+				</td>
+				<td>
+					{{ resultatCandidat.candidat }}
+				</td>
+				<td class="text-right">
+					{{ resultatCandidat.score | number: '1.0-0' | replace: ',':' ' }}
+				</td>
+				<td class="text-right">
+					{{ resultatCandidat.pourcentage | number: '1.2-2'}}%
+				</td>
+				<td>{{ resultat.commissionLocale?.designation }}</td>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="emptymessage">
+			<tr>
+			   <td class="text-center" colspan="6">Aucun résultat trouvé</td>
+			</tr>
+		</ng-template>
+	</p-table>
+</div>
+
+<app-detail-resultat [ligneResultat]="resultat"
+					 [resultatDialog]="modalResultatVisible"
+					 *ngIf="modalResultatVisible"
+					 (visibleChange)="visibleChange($event)">
+</app-detail-resultat>
+<p-toast position="bottom-right" key="notification"></p-toast>

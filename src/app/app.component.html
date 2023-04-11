@@ -1,0 +1,11 @@
+<div *ngIf="isNotConnexion()">
+	<app-header *ngIf="isNotConnexion()"
+				[collapsed]="isSideNavCollapsed"
+				[screenWidth]="screenwidth">
+	</app-header>
+	<app-sidebar *ngIf="isNotConnexion()"
+				 (onToggleSideNav)="onToggleSideNav($event)"></app-sidebar>
+</div>
+<div *ngIf="!isNotConnexion()">
+	<router-outlet></router-outlet>
+</div>

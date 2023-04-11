@@ -1,0 +1,131 @@
+<p-dialog [draggable]="false"
+		  [header]="titreDetailResultat"
+		  [(visible)]="resultatDialog"
+		  styleClass="p-fluid"
+		  [modal]="true"
+		  [resizable]="false"
+		  (onHide)="fermerModal()">
+	<div [style]="{width: '70vw'}">
+		<div class="grid mb-5 mt-1">
+			<div class="bordure col-2 surface-100">
+				<span>REGION</span>
+			</div>
+			<div class="bordure col-3">
+				<span>{{ ligneResultat?.region }}</span>
+			</div>
+			<div class="bordure col-2 surface-100">
+				<span>TOTAL INSCRITS</span>
+			</div>
+			<div class="bordure col-1 text-right">
+				<span>{{ ligneResultat?.nombreInscrits | number: '1.0-0' | replace: ',':' ' }}</span>
+			</div>
+
+			<div class="bordure col-3 surface-100">
+				<span>BULLETINS NULS</span>
+			</div>
+			<div class="bordure col-1 text-right">
+				<span>{{ ligneResultat?.nombreBulletinsNuls | number: '1.0-0' | replace: ',':' ' }}</span>
+			</div>
+			<div class="bordure col-2 surface-100">
+				<span>DEPARTEMENT</span>
+			</div>
+			<div class="bordure col-3">
+				<span> {{ ligneResultat?.departement }}</span>
+			</div>
+
+			<div class="bordure col-2 surface-100">
+				<span>TOTAL VOTANTS</span>
+			</div>
+			<div class="bordure col-1 text-right">
+				<span>{{ ligneResultat?.totalVotants | number: '1.0-0' | replace: ',':' ' }}</span>
+			</div>
+			<div class="bordure col-3 surface-100">
+				<span>TAUX GLOBAL DE PARTICIPATION</span>
+			</div>
+			<div class="bordure col-1 text-right">
+				<span>{{ ligneResultat?.tauxParticipation | number: '1.2-2' }}%</span>
+			</div>
+
+			<div class="bordure col-2 surface-100">
+				<span>SOUS-PREFECTURE</span>
+			</div>
+			<div class="bordure col-3">
+				<span>{{ ligneResultat?.sousPrefecture }}</span>
+			</div>
+			<div class="bordure  col-2 surface-100">
+				<span>SUFFRAGES EXPRIMES</span>
+			</div>
+			<div class="bordure  col-1 text-right">
+				<span>{{ ligneResultat?.suffragesExprimes | number: '1.0-0' | replace: ',':' ' }}</span>
+			</div>
+
+			<div class="bordure col-3 surface-100">
+				<span>NOMBRE DE BUREAU DE VOTE</span>
+			</div>
+			<div class="bordure col-1 text-right">
+				<span>{{ ligneResultat?.nombreBureauVote | number: '1.0-0' | replace: ',':' ' }}</span>
+			</div>
+			<div class="bordure col-2 surface-100">
+				<span>COMMUNE</span>
+			</div>
+			<div class="bordure col-3">
+				<span>{{ligneResultat?.circonscription?.designation }}</span>
+			</div>
+			<div class="bordure col-2 surface-100">
+				<span>BULLETINS BLANCS</span>
+			</div>
+			<div class="bordure col-1 text-right">
+				<span>{{ ligneResultat?.nombreBulletinsBlancs }}</span>
+			</div>
+
+			<div class="col-3">
+				<!--
+				<span>HEURE DE RECEPTION</span>
+				-->
+			</div>
+			<div class="col-1 text-center ">
+			</div>
+
+			<div class="col-12"></div>
+			<div class="col-12">
+				<p-table [value]="ligneResultat.resultatCandidats"
+						 [showCurrentPageReport]="true"
+						 selectionMode="multiple"
+						 responsiveLayout="scroll"
+						 [resizableColumns]="true"
+						 styleClass="p-datatable-gridlines">
+					<ng-template pTemplate="header">
+						<tr>
+							<th class="text-center">RANG</th>
+							<th class="text-center">PARTI POLITIQUE</th>
+							<th class="text-center">CANDIDATS / LISTE CANDIDATS</th>
+							<th width="250px" class="text-center">NOMBRE DE VOIX OBTENUES</th>
+							<th width="150px" class="text-center">POURCENTAGES</th>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="body" let-resultat let-rowIndex="rowIndex">
+						<tr [style]="couleurCandidat(resultat, ligneResultat.resultatCandidats)">
+							<td class="text-right">
+								{{ rowIndex + 1}}
+							</td>
+							<td>
+								{{resultat.partiPolitique}}</td>
+							<td>
+								{{resultat.candidat}}</td>
+							<td class="text-right">
+								{{resultat.score | number: '1.0-0' | replace: ',':' '}}</td>
+							<td class="text-right">
+								{{resultat.pourcentage | number: '1.2-2'}}%
+							</td>
+						</tr>
+					</ng-template>
+				</p-table>
+			</div>
+		</div>
+	</div>
+
+	<ng-template pTemplate="footer">
+		<p-button (click)="fermerModal()" label="Fermer" styleClass="p-button-success">
+		</p-button>
+	</ng-template>
+</p-dialog>

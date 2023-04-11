@@ -1,0 +1,121 @@
+.position {
+	padding-top: 190px;
+}
+
+.message-formulaire {
+	width: 60rem;
+	height: 35rem;
+	box-shadow: 0 0 5px 1px #A3A2AA;
+	border-left: solid 12px orange;
+
+	.message-bienvenue {
+		color: white;
+		width: 60%;
+		height: 100%;
+		background-color: #72AE17;
+		text-align: center;
+
+		.presentation {
+			font-size: 1.3rem;
+			font-weight: bold;
+			color: #166641;
+		}
+
+		.armoirie {
+			margin-top: 5rem;
+		}
+
+		.devise {
+			color: #f6f6f6;
+			font-size: 1.3rem;
+			font-weight: bold;
+			margin-top: 7rem;
+		}
+	}
+
+	.formulaire {
+		width: 40%;
+		height: 100%;
+
+		.logo-cei {
+			text-align: center;
+
+			img {
+				width: 8rem;
+			}
+		}
+
+		.partie-connexion {
+			padding: 2px 7px 0 7px;
+
+			.titre {
+				text-align: center;
+				font-size: 1.75rem;
+				color: dimgray;
+			}
+
+			.login, .mot-passe {
+				.p-inputgroup-addon {
+					border: none;
+					border-top-left-radius: 5px;
+					border-bottom-left-radius: 5px;
+				}
+			}
+
+			.mot-passe {
+				height: 38px;
+
+				input {
+					border: 1px solid #ced4da !important;
+				}
+			}
+
+			.bouton-connexion {
+				background-color: orange;
+			}
+
+			//.mot-passe {
+			//	div {
+			//		width: 25rem !important;
+			//	}
+			//}
+
+			:host ::ng-deep .custom-spinner .p-progress-spinner-circle {
+				animation: custom-progress-spinner-dash 1.5s ease-in-out infinite, custom-progress-spinner-color 6s ease-in-out infinite;
+			}
+
+			@keyframes custom-progress-spinner-color {
+				100%,
+				0% {
+					stroke: #16697A;
+				}
+				40% {
+					stroke: #489FB5;
+				}
+				66% {
+					stroke: #82C0CC;
+				}
+				80%,
+				90% {
+					stroke: #FFA62B;
+				}
+			}
+
+			@keyframes custom-progress-spinner-dash {
+				0% {
+					stroke-dasharray: 1, 200;
+					stroke-dashoffset: 0;
+				}
+				50% {
+					stroke-dasharray: 89, 200;
+					stroke-dashoffset: -35px;
+				}
+				100% {
+					stroke-dasharray: 89, 200;
+					stroke-dashoffset: -124px;
+				}
+			}
+		}
+	}
+}
+
